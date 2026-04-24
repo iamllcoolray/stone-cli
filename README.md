@@ -1,6 +1,8 @@
 # stone 🪨
 
-A cross-platform CLI tool for checking and updating projects distributed on [itch.io](https://itch.io). Built for the [utiliti belt](https://github.com/utiliti-belt) ecosystem and named after *lithos* — the Greek root behind [LITIengine](https://litiengine.com).
+A cross-platform CLI tool for checking and updating [utiliti](https://gurkenlabs.itch.io/litiengine) distributed on [itch.io](https://itch.io).
+
+Named after *lithos* — the Greek root behind [LITIengine](https://litiengine.com).
 
 ---
 
