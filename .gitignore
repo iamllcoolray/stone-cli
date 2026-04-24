@@ -28,8 +28,11 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/
+
+### Mac OS ###
+.DS_Store
 
 # Releases
 dist/
