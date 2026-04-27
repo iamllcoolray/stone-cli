@@ -4,7 +4,7 @@ import "net/http"
 
 const (
 	utiLITIPageURL             = "https://gurkenlabs.itch.io/litiengine"
-	utiLITIDownloadURLEndpoint = "https://gurkenlabs.itch.io/litiengine/download"
+	utiLITIDownloadURLEndpoint = "/download"
 )
 
 type Client struct {
