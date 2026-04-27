@@ -1,6 +1,9 @@
 package cmd
 
-import "github.com/spf13/cobra"
+import (
+	config "github.com/iamllcoolray/stone-cli/internal/configuration"
+	"github.com/spf13/cobra"
+)
 
 var (
 	removeAll bool
@@ -18,5 +21,6 @@ func init() {
 }
 
 func runRemove(cmd *cobra.Command, args []string) error {
+	config.Load()
 	return nil
 }
