@@ -79,8 +79,14 @@ stone update
 # Force update even if already on the latest version
 stone update --force
 
+# Delete and uninstall utiLITI
+stone remove
+
+# Force delete utiLITI
+stone remove --force
+
 # Print the current stone version
-stone --version
+stone version
 ```
 
 ---
