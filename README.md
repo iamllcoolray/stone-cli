@@ -64,11 +64,14 @@ last_version = "0.11.1"
 ## Usage
 
 ```bash
-# Initialize stone and configure the config.toml
+# Set up stone and install utiLITI
 stone init
 
-# Configure stone config.toml file
+# Veiw the local install path
 stone config
+
+# Configure the local install path
+stone config --install-path
 
 # Check if a new version is available
 stone check
@@ -79,11 +82,11 @@ stone update
 # Force update even if already on the latest version
 stone update --force
 
-# Delete and uninstall utiLITI
+# Remove utiLITI from the system
 stone remove
 
-# Force delete utiLITI
-stone remove --force
+# Remove utiLITI and stone from the system
+stone remove --all
 
 # Print the current stone version
 stone version

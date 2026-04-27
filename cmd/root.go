@@ -13,8 +13,11 @@ var rootCmd = &cobra.Command{
 	Short: "stone — utiLITI application manager",
 	Long:  "stone checks for and installs updates for utiLITI application manager.",
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-		// skip config check for commands that don't need it
-		skip := map[string]bool{"init": true, "config": true}
+		skip := map[string]bool{
+			"init":   true,
+			"config": true,
+			"remove": true,
+		}
 		if skip[cmd.Name()] {
 			return nil
 		}

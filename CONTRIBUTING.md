@@ -37,8 +37,8 @@ stone-cli/
 ├── cmd/
 │   └── root.go           # cobra root + subcommand registration
 ├── internal/
-│   ├── api/
-│   │   └── itchio.go     # itch.io scraper, version fetch
+│   ├── scraper/
+│   │   └── scraper.go     # itch.io scraper, version fetch
 │   ├── updater/
 │   │   └── updater.go    # download, extract, replace logic
 │   └── config/
