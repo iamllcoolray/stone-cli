@@ -71,10 +71,16 @@ func runInit(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("saving config: %w", err)
 	}
 
+	// mask api key for display
+	maskedKey := cfg.APIKey
+	if len(maskedKey) > 8 {
+		maskedKey = maskedKey[:8] + "..."
+	}
+
 	fmt.Println()
 	fmt.Printf("Config saved to %s\n", configPath)
 	fmt.Println()
-	fmt.Println("  api_key      =", cfg.APIKey[:8]+"...")
+	fmt.Println("  api_key      =", maskedKey)
 	fmt.Println("  install_path =", cfg.InstallPath)
 	fmt.Println()
 	fmt.Println("Run 'stone update' to install utiLITI.")

@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/iamllcoolray/stone-cli/internal/api"
 	config "github.com/iamllcoolray/stone-cli/internal/configuration"
-	"github.com/iamllcoolray/stone-cli/internal/scraper"
 	"github.com/spf13/cobra"
 )
 
@@ -26,7 +26,7 @@ func runCheck(cmd *cobra.Command, args []string) error {
 
 	fmt.Println("Checking for updates...")
 
-	client := scraper.New()
+	client := api.New(cfg.APIKey)
 
 	latest, err := client.FetchLatestVersion()
 	if err != nil {
