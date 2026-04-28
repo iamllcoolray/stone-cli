@@ -70,6 +70,9 @@ stone init
 # Veiw the local install path
 stone config
 
+# Configure the itch.io API key
+stone config --api-key
+
 # Configure the local install path
 stone config --install-path
 
