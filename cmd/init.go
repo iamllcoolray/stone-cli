@@ -13,6 +13,7 @@ import (
 var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Set up stone and install utiLITI",
+	Long:  "Walks you through creating a config file for stone, then installs the latest version of utiLITI.",
 	RunE:  runInit,
 }
 
@@ -24,6 +25,7 @@ func runInit(cmd *cobra.Command, args []string) error {
 	reader := bufio.NewReader(os.Stdin)
 
 	existing, _ := config.Load()
+
 	configPath, err := config.Path()
 	if err != nil {
 		return err
@@ -71,20 +73,18 @@ func runInit(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("saving config: %w", err)
 	}
 
-	// mask api key for display
+	fmt.Println()
+	fmt.Printf("Config saved to %s\n", configPath)
+	fmt.Println()
 	maskedKey := cfg.APIKey
 	if len(maskedKey) > 8 {
 		maskedKey = maskedKey[:8] + "..."
 	}
-
-	fmt.Println()
-	fmt.Printf("Config saved to %s\n", configPath)
-	fmt.Println()
 	fmt.Println("  api_key      =", maskedKey)
 	fmt.Println("  install_path =", cfg.InstallPath)
 	fmt.Println()
-	fmt.Println("Run 'stone update' to install utiLITI.")
-	return nil
+	fmt.Println("Installing utiLITI...")
+	return runUpdate(cmd, args)
 }
 
 func prompt(r *bufio.Reader, question, defaultVal string) string {
