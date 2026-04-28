@@ -30,7 +30,10 @@ if [[ "$OS" == "darwin" ]]; then
 fi
 
 # ─── Download ─────────────────────────────────────────────────────────────────
-ZIP="stone-${OS}-${ARCH}.zip"
+# get latest version tag from GitHub API
+VERSION=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" | grep '"tag_name"' | cut -d'"' -f4)
+
+ZIP="stone-${OS}-${ARCH}-${VERSION}.zip"
 URL="https://github.com/${REPO}/releases/latest/download/${ZIP}"
 TMP_DIR=$(mktemp -d)
 
