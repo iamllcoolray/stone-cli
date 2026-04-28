@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ─── Config ───────────────────────────────────────────────────────────────────
-APP_NAME="itchio-updater"
+APP_NAME="stone"
 OUTPUT_DIR="./dist"
 MAIN_PKG="."                      # path to your main package
 VERSION="${VERSION:-$(git describe --tags --always --dirty 2>/dev/null || echo "dev")}"
