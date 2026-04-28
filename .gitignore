@@ -36,3 +36,5 @@ go.work.sum
 
 # Releases
 dist/
+stone
+stone-cli
