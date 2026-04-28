@@ -132,25 +132,9 @@ stone uses TOML via viper. The config file is resolved at runtime from platform-
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `game_id` | string | The itch.io game ID or slug to track |
+| `api_key` | string | The itch.io API key |
 | `install_path` | string | Absolute path to the local installation |
 | `last_version` | string | Stored after a successful update, used for comparison |
-
----
-
-## itch.io Scraping
-
-stone scrapes public itch.io pages rather than using the API — no key required. The scraper in `internal/api/itchio.go` hits the game's public page and parses the upload metadata to find the latest build for the current platform.
-
-Platform detection maps `runtime.GOOS` to itch.io's platform tags:
-
-| `runtime.GOOS` | itch.io tag |
-|----------------|-------------|
-| `linux` | `p_linux` |
-| `windows` | `p_windows` |
-| `darwin` | `p_osx` |
-
-**Note:** itch.io's page structure can change without notice. If the scraper breaks after an itch.io update, the HTML selectors in `itchio.go` will need updating.
 
 ---
 
@@ -161,4 +145,6 @@ Platform detection maps `runtime.GOOS` to itch.io's platform tags:
 | `github.com/spf13/cobra` | CLI commands and flags |
 | `github.com/spf13/viper` | Config file management |
 | `archive/zip` | stdlib — zip extraction |
-| `net/http` | stdlib — HTTP requests and downloads |
+| `encoding/json` | stdlib — itch.io API response decoding |
+| `net/http` | stdlib — HTTP requests, API calls, and downloads |
+| `net/http/cookiejar` | stdlib — cookie jar for shared HTTP session |

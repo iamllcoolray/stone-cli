@@ -41,6 +41,24 @@ INSTALL_DIR=~/.local/bin curl -L https://github.com/iamllcoolray/stone-cli/relea
 ```
 
 ---
+ 
+## itch.io API Key
+ 
+stone uses the [itch.io API](https://itch.io/docs/api/overview) to check for new versions of utiLITI and retrieve download URLs. An API key is required.
+ 
+### Getting a key
+ 
+1. Log in to [itch.io](https://itch.io)
+2. Go to [Settings → API keys](https://itch.io/user/settings/api-keys)
+3. Click **Generate new API key**
+4. Copy the key — you'll need it during `stone init`
+### Important
+ 
+stone requires a **personal API key** generated from your itch.io account settings. OAuth keys will not work for downloading files — this is an itch.io restriction, not a stone limitation.
+ 
+Your API key is stored locally in your config file and is never transmitted anywhere other than directly to the itch.io API.
+ 
+---
 
 ## Configuration
 
@@ -55,9 +73,12 @@ Create the file manually or run `stone init` to generate it interactively.
 
 **`config.toml`:**
 ```toml
-install_path = "/path/to/your/game"
+api_key      = "your_itchio_api_key"
+install_path = "/path/to/utiliti"
 last_version = "0.11.1"
 ```
+
+`last_version` is written automatically by stone after a successful install or update — you do not need to set it manually.
 
 ---
 
