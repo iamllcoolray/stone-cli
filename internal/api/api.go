@@ -31,15 +31,20 @@ func (c *Client) HTTPClient() *http.Client {
 	return c.http
 }
 
-// Upload represents a single itch.io upload entry
+type Build struct {
+	ID          int    `json:"id"`
+	UserVersion string `json:"user_version"`
+}
+
 type Upload struct {
 	ID          int    `json:"id"`
 	Filename    string `json:"filename"`
+	DisplayName string `json:"display_name"`
+	ChannelName string `json:"channel_name"`
 	PWindows    bool   `json:"p_windows"`
 	PLinux      bool   `json:"p_linux"`
 	POSX        bool   `json:"p_osx"`
-	DisplayName string `json:"display_name"`
-	BuildID     int    `json:"build_id"`
+	Build       Build  `json:"build"`
 }
 
 type uploadsResponse struct {
@@ -84,42 +89,17 @@ func (c *Client) FetchPlatformUpload() (*Upload, error) {
 	return nil, fmt.Errorf("no upload found for platform: %s", runtime.GOOS)
 }
 
-// FetchLatestVersion returns the version string for the current platform upload
 func (c *Client) FetchLatestVersion() (string, error) {
 	upload, err := c.FetchPlatformUpload()
 	if err != nil {
 		return "", err
 	}
-
-	if upload.BuildID == 0 {
-		return "", fmt.Errorf("no build found for upload %d", upload.ID)
+	if upload.Build.UserVersion == "" {
+		return "", fmt.Errorf("version not found for upload %d", upload.ID)
 	}
-
-	url := fmt.Sprintf("%s/%s/build/%d/info", itchAPIBaseURL, c.apiKey, upload.BuildID)
-
-	resp, err := c.http.Get(url)
-	if err != nil {
-		return "", fmt.Errorf("fetching build info: %w", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("unexpected status: %d", resp.StatusCode)
-	}
-
-	var result buildResponse
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		return "", fmt.Errorf("decoding build info: %w", err)
-	}
-
-	if result.Build.UserVersion == "" {
-		return "", fmt.Errorf("version not found in build info")
-	}
-
-	return result.Build.UserVersion, nil
+	return upload.Build.UserVersion, nil
 }
 
-// FetchDownloadURL returns a direct download URL for the given upload ID
 func (c *Client) FetchDownloadURL(uploadID int) (string, error) {
 	url := fmt.Sprintf("%s/%s/upload/%d/download", itchAPIBaseURL, c.apiKey, uploadID)
 
