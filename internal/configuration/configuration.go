@@ -10,6 +10,7 @@ import (
 )
 
 type Config struct {
+	APIKey      string `mapstructure:"api_key"`
 	InstallPath string `mapstructure:"install_path"`
 	LastVersion string `mapstructure:"last_version"`
 }
@@ -81,6 +82,7 @@ func Save(cfg *Config) error {
 		return fmt.Errorf("creating config dir: %w", err)
 	}
 
+	viper.Set("api_key", cfg.APIKey)
 	viper.Set("install_path", cfg.InstallPath)
 	viper.Set("last_version", cfg.LastVersion)
 
@@ -93,6 +95,9 @@ func Save(cfg *Config) error {
 
 // Validate checks that required fields are set.
 func (c *Config) Validate() error {
+	if c.APIKey == "" {
+		return fmt.Errorf("api_key is not set — run: stone init")
+	}
 	if c.InstallPath == "" {
 		return fmt.Errorf("install_path is not set — run: stone init")
 	}
