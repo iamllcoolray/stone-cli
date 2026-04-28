@@ -88,6 +88,9 @@ stone update --force
 # Remove utiLITI from the system
 stone remove
 
+# Remove stone from the system
+stone remove --stone
+
 # Remove utiLITI and stone from the system
 stone remove --all
 
