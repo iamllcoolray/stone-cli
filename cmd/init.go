@@ -30,7 +30,7 @@ func runInit(cmd *cobra.Command, args []string) error {
 	}
 
 	// warn if overwriting existing config
-	if existing.InstallPath != "" {
+	if existing.InstallPath != "" || existing.APIKey != "" {
 		fmt.Printf("Config already exists at %s\n", configPath)
 		fmt.Print("Overwrite? [y/N] ")
 		answer, _ := reader.ReadString('\n')
@@ -42,8 +42,14 @@ func runInit(cmd *cobra.Command, args []string) error {
 
 	fmt.Println("Initializing stone...")
 	fmt.Println()
+	fmt.Println("Get your API key at: https://itch.io/user/settings/api-keys")
+	fmt.Println()
 
-	// prompt for install path
+	apiKey := prompt(reader, "itch.io API key", existing.APIKey)
+	if apiKey == "" {
+		return fmt.Errorf("api_key cannot be empty")
+	}
+
 	defaultPath := existing.InstallPath
 	if defaultPath == "" {
 		home, _ := os.UserHomeDir()
@@ -56,6 +62,7 @@ func runInit(cmd *cobra.Command, args []string) error {
 	}
 
 	cfg := &config.Config{
+		APIKey:      apiKey,
 		InstallPath: installPath,
 		LastVersion: existing.LastVersion,
 	}
@@ -67,9 +74,10 @@ func runInit(cmd *cobra.Command, args []string) error {
 	fmt.Println()
 	fmt.Printf("Config saved to %s\n", configPath)
 	fmt.Println()
+	fmt.Println("  api_key      =", cfg.APIKey[:8]+"...")
 	fmt.Println("  install_path =", cfg.InstallPath)
 	fmt.Println()
-	fmt.Println("Run 'stone check' to look for updates.")
+	fmt.Println("Run 'stone update' to install utiLITI.")
 	return nil
 }
 
