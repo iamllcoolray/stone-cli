@@ -5,7 +5,7 @@ set -euo pipefail
 APP_NAME="stone"
 OUTPUT_DIR="./dist"
 MAIN_PKG="."                      # path to your main package
-VERSION="${VERSION:-$(git describe --tags --always --dirty 2>/dev/null || echo "dev")}"
+VERSION="${VERSION:-$(git describe --tags --always 2>/dev/null || echo "dev")}"
 LDFLAGS="-s -w -X main.Version=${VERSION}"
 
 # ─── Targets ──────────────────────────────────────────────────────────────────
