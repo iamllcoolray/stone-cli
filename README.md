@@ -97,6 +97,9 @@ stone config --api-key
 # Configure the local install path
 stone config --install-path
 
+# Create a new LITIengine project
+stone new
+
 # Check if a new version is available
 stone check
 
